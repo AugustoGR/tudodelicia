@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Tudo Delícia</string>
+    <string name="access_app">Faça login para continuar</string>
+    <string name="password">Senha</string>
+    <string name="log_in">Log in</string>
+    <string name="log_on">Cadastrar</string>
+    <string name="log_on_access">Cadastre-se</string>
+    <string name="log_on_title">Cadastro</string>
+    <string name="email">Email</string>
+    <string name="user_name">Nome de Usuário</string>
+    <string name="birthday">Data de Nascimento</string>
+    <string name="confirm_password">Confirmar Senha</string>
+</resources>
