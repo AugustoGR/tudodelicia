@@ -2,21 +2,21 @@
     <item
         android:id="@+id/item_1"
         android:enabled="true"
-        android:icon="@drawable/heart"
-        android:title="a"/>
+        android:icon="@drawable/home"
+        android:title="Início"/>
     <item
         android:id="@+id/item_2"
         android:enabled="true"
-        android:icon="@drawable/heart"
-        android:title="b"/>
+        android:icon="@drawable/search"
+        android:title="Pesquisa"/>
     <item
         android:id="@+id/item_3"
         android:enabled="true"
-        android:icon="@drawable/heart"
-        android:title="c"/>
+        android:icon="@drawable/bottom_heart"
+        android:title="Favoritos"/>
     <item
         android:id="@+id/item_4"
         android:enabled="true"
-        android:icon="@drawable/heart"
-        android:title="d"/>
+        android:icon="@drawable/news"
+        android:title="Notícias"/>
 </menu>
