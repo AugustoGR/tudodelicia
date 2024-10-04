@@ -7,310 +7,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
     <LinearLayout
+        android:onClick="logout"
         android:id="@+id/user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="horizontal">
-
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="10dp"
+        android:layout_marginHorizontal="10dp">
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
-            android:layout_margin="6dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="Imagem de perfil"
             android:src="@drawable/augusto" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
             android:text="Augusto Flores"
             android:textColor="#000000"
-            android:textSize="20sp" />
+            android:layout_marginStart="5dp"
+            android:textSize="16sp"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Receitas para você"
+        android:textAlignment="center"
+        android:textColor="#212832"
+        android:textSize="22sp"
+        app:layout_constraintTop_toBottomOf="@+id/user" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/user">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
-
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintWidth_max="500dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
+            android:orientation="vertical"
+            android:paddingBottom="250dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/hamburguinho"
-                android:scaleType="centerCrop"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Hamburger"
-                    android:textSize="20sp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="6dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="end"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="6dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_margin="4dp"
-                        android:src="@drawable/chat_bubble"/>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_margin="4dp"
-                        android:src="@drawable/favorites"/>
-
-                </LinearLayout>
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="16dp"
-                android:text="Hamburger bem delicioso hmm venha experimentar\na\na\na"
-                android:textSize="14sp"
-                android:textColor="#777777"/>
+                android:layout_marginTop="16dp" />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/massa"
-                android:scaleType="centerCrop"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Massa carbonara?"
-                    android:textSize="20sp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="6dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="end"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="6dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_margin="4dp"
-                        android:src="@drawable/chat_bubble"/>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_margin="4dp"
-                        android:src="@drawable/favorites"/>
-
-                </LinearLayout>
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="16dp"
-                android:text="massa bem gostosa que talvez seja carbonara não tenho certeza"
-                android:textSize="14sp"
-                android:textColor="#777777"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/cesar"
-                android:scaleType="centerCrop"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Salada do César"
-                    android:textSize="20sp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="6dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="end"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="6dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_margin="4dp"
-                        android:src="@drawable/chat_bubble"/>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_margin="4dp"
-                        android:src="@drawable/favorites"/>
-
-                </LinearLayout>
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="16dp"
-                android:text="alface e frango basicamente"
-                android:textSize="14sp"
-                android:textColor="#777777"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/hamburguinho"
-                android:scaleType="centerCrop"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Hamburger 2"
-                    android:textSize="20sp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="6dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="end"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="6dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_margin="4dp"
-                        android:src="@drawable/chat_bubble"/>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_margin="4dp"
-                        android:src="@drawable/favorites"/>
-
-                </LinearLayout>
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="16dp"
-                android:text="loremaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                android:textSize="14sp"
-                android:textColor="#777777"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
-
-</ScrollView>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -319,17 +70,21 @@
         android:layout_margin="18dp"
         android:src="@drawable/plus"
         app:backgroundTint="#fc9828"
-        app:itemIconTint="#f2f7f4"
+        app:tint="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        app:backgroundTint="#f2f7f4"
-        app:itemIconTint="#fc9828"
+        android:layout_height="wrap_content"
+        app:backgroundTint="#fff"
+        app:elevation="8dp"
+        app:itemIconTint="@color/item_menu_colors"
+        app:itemTextColor="@color/item_menu_colors"
         app:menu="@layout/navigation"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:labelVisibilityMode="labeled"/>
+        app:labelVisibilityMode="labeled"
+        android:fontFamily="@font/poppins_medium"
+        app:itemActiveIndicatorStyle="@style/BottomNavigationIndicatorStyle"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
