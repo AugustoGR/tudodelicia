@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/access_app">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/userInput"
+            android:id="@+id/emailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/email"
@@ -86,7 +86,6 @@
 
     <Button
         style="@style/Widget.Material3.Button.TextButton"
-        android:onClick="login"
         android:id="@+id/loginButton"
         android:textColor="#FFF"
         android:layout_width="match_parent"

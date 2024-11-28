@@ -26,7 +26,7 @@ class RecipeCardAdapter(private val foodList: List<Recipe>) : RecyclerView.Adapt
         val food = foodList[position]
         holder.title.text = food.title
         holder.description.text = food.description
-        holder.image.setImageResource(food.imageResourceId)
+        holder.image.setImageBitmap(food.imageResourceId)
         holder.chat.setImageResource(R.drawable.chat_bubble)
         holder.favorite.setImageResource(R.drawable.favorites)
     }

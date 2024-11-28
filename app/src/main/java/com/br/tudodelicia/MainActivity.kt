@@ -1,7 +1,10 @@
 package com.br.tudodelicia
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +12,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,32 +29,50 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val userPreferences = getSharedPreferences("userPreferences", MODE_PRIVATE)
-
-        if (!userPreferences.contains("name")) {
+        auth = Firebase.auth
+    }
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
         }
-
-        val recipeList = listOf(
-            Recipe("Hamburger", "Hamburger bem delicioso hmm venha experimentar", R.drawable.hamburguinho),
-            Recipe("Massa Carbonara?", "massa bem gostosa que talvez seja carbonara não tenho certeza", R.drawable.massa),
-            Recipe("Salada do César", "alface e frango basicamente", R.drawable.cesar),
-            Recipe("Hamburger Vegano", "Pão, alface, queijo vegetal com molho e carne de soja", R.drawable.hamburguinho)
-        )
-
+        val recipeList = mutableListOf<Recipe>()
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         val recipeCardAdapter = RecipeCardAdapter(recipeList)
         recyclerView.adapter = recipeCardAdapter
+        val db = Firebase.firestore
+        db.collection("recipes")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result ) {
+                    val title: String? = document.getString("title")
+                    val description: String? = document.getString("description")
+                    val decodedBytes: ByteArray = Base64.decode(document.getString("img"), Base64.DEFAULT)
+                    val decodedBitmap =
+                        BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+                    recipeList.add(Recipe(title,description,decodedBitmap))
+                }
+                recipeCardAdapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener { e ->
+                Log.w( "Error adding document", e)
+            }
 
     }
     fun logout(view: View) {
-        deleteSharedPreferences("userPreferences")
+        Firebase.auth.signOut()
         val intent = Intent(this, Login::class.java)
         startActivity(intent)
         finish()
+    }
+
+    fun goToRecipe(view: View) {
+        val intent = Intent(this, RecipeDetail::class.java)
+        startActivity(intent)
     }
 }
