@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "566050315520",
+    "project_id": "app-tudo-delicia",
+    "storage_bucket": "app-tudo-delicia.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566050315520:android:9691ff3c71c340aa7627e5",
+        "android_client_info": {
+          "package_name": "com.br.tudodelicia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtdMJ1cmC0W5v-bBIAW6gDBgk2E0NgvZs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
