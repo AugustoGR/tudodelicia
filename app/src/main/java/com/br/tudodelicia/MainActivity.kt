@@ -75,4 +75,9 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, RecipeDetail::class.java)
         startActivity(intent)
     }
+
+    fun goToCreateRecipe(view: View) {
+        val intent = Intent(this, CreateRecipe::class.java)
+        startActivity(intent)
+    }
 }

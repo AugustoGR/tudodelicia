@@ -11,9 +11,4 @@
         android:id="@+id/item_3"
         android:icon="@drawable/bottom_heart"
         android:title="Favoritos"/>
-    <item
-        android:id="@+id/item_4"
-        android:icon="@drawable/news"
-
-        android:title="Notícias"/>
 </menu>

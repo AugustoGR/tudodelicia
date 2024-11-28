@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tv_bullet_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="•"
+        android:fontFamily="@font/poppins"
+        android:textSize="20sp"
+        android:textColor="#000000" />
+
+    <EditText
+        android:id="@+id/et_ingredient"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:hint="Digite o ingrediente"
+        android:fontFamily="@font/poppins"
+        android:background="@null"
+        android:padding="12dp"
+        android:textSize="14sp" />
+
+    <ImageButton
+        android:id="@+id/btn_remove"
+        android:minWidth="20dp"
+        android:maxHeight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/delete"
+        android:background="@null"
+        android:textColor="#000" />
+</LinearLayout>
