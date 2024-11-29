@@ -28,6 +28,8 @@
         <activity android:name=".Login" />
         <activity android:name=".CreateRecipe" />
         <activity android:name=".Search"/>
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".Favorited" />
 
         <meta-data
             android:name="preloaded_fonts"

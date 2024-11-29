@@ -21,14 +21,16 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
-class MainActivity : AppCompatActivity() {
+class Favorited : AppCompatActivity() {
+
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var profileImage: ImageView
     private lateinit var auth: FirebaseAuth
+    private lateinit var profileImage: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.favorited_recipes)
 
         profileImage = findViewById(R.id.profileImage)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.selectedItemId = R.id.item_3
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -46,8 +49,8 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, Search::class.java))
                     true
                 }
-                R.id.item_3 -> {
-                    startActivity(Intent(this, Favorited::class.java))
+                R.id.item_1 -> {
+                    startActivity(Intent(this, MainActivity::class.java))
                     true
                 }
                 else -> false
@@ -57,7 +60,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser == null) {
             val intent = Intent(this, Login::class.java)
@@ -71,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             foodList = recipeList,
             onItemClicked =  { documentId ->
                 val intent = Intent(this, RecipeDetail::class.java)
-                intent.putExtra("documentId", documentId) // Passa o documentId
+                intent.putExtra("documentId", documentId)
                 startActivity(intent)
             },
             currentUserId = currentUser?.uid!!
@@ -82,29 +84,32 @@ class MainActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result ) {
-                    val title: String? = document.getString("title")
-                    val description: String? = document.getString("description")
-                    val decodedBytes: ByteArray = Base64.decode(document.getString("img"), Base64.DEFAULT)
-                    val decodedBitmap =
-                        BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-                    val id = document.id
                     val likedByUsers: MutableList<String> = document.get("likedByUsers") as? MutableList<String> ?: mutableListOf()
-                    val likeCount = document.get("likeCount") as? Number ?: 0
-                    val commentsCount = document.get("commentsCount") as? Number ?: 0
-                    recipeList.add(Recipe(title,description,decodedBitmap,id,likedByUsers,likeCount.toInt(),commentsCount.toInt()))
+                    if (likedByUsers.contains(currentUser.uid)) {
+                        val title: String? = document.getString("title")
+                        val description: String? = document.getString("description")
+                        val decodedBytes: ByteArray = Base64.decode(document.getString("img"), Base64.DEFAULT)
+                        val decodedBitmap =
+                            BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+                        val id = document.id
+                        val likeCount = document.get("likeCount") as? Number ?: 0
+                        val commentsCount = document.get("commentsCount") as? Number ?: 0
+                        recipeList.add(Recipe(title,description,decodedBitmap,id,likedByUsers,likeCount.toInt(),commentsCount.toInt()))
+                    }
                 }
                 recipeCardAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { e ->
-                Log.w("Error adding document", e)
+                Log.w( "Error adding document", e)
             }
-        loadProfilePhoto(currentUser.uid)
+
         findViewById<TextView>(R.id.user_name).text = currentUser.displayName
+        loadProfilePhoto(currentUser.uid)
     }
 
     override fun onResume() {
         super.onResume()
-        bottomNavigationView.selectedItemId = R.id.item_1
+        bottomNavigationView.selectedItemId = R.id.item_3
     }
 
     fun goToProfile(view: View) {
@@ -139,4 +144,5 @@ class MainActivity : AppCompatActivity() {
                 profileImage.setImageResource(R.drawable.augusto)
             }
     }
+
 }

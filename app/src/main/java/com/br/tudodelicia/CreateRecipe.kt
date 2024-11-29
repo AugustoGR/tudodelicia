@@ -1,6 +1,5 @@
 package com.br.tudodelicia
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -18,12 +17,19 @@ import android.graphics.Bitmap
 import android.util.Base64
 import java.io.ByteArrayOutputStream
 import android.graphics.BitmapFactory
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 import java.io.File
+import java.util.UUID
 
 class CreateRecipe : AppCompatActivity() {
 
     private lateinit var ivRecipeImage: ImageView
     private lateinit var etRecipeName: EditText
+    private lateinit var etRecipeDescription: EditText
     private lateinit var ingredientsContainer: LinearLayout
     private lateinit var stepsContainer: LinearLayout
     private lateinit var btnAddIngredient: Button
@@ -38,10 +44,17 @@ class CreateRecipe : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_recipe)
+        enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         ivRecipeImage = findViewById(R.id.iv_recipe_image)
         ivRecipeImageButton = findViewById(R.id.iv_recipe_image_button)
         etRecipeName = findViewById(R.id.et_recipe_name)
+        etRecipeDescription = findViewById(R.id.et_recipe_description)
         ingredientsContainer = findViewById(R.id.ingredients_container)
         stepsContainer = findViewById(R.id.steps_container)
         btnAddIngredient = findViewById(R.id.btn_add_ingredient)
@@ -104,31 +117,33 @@ class CreateRecipe : AppCompatActivity() {
 
     private fun bitmapToBase64(bitmap: Bitmap): String {
         val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 30, byteArrayOutputStream)
         val byteArray = byteArrayOutputStream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
-    private fun getFileExtension( uri: Uri): String? {
-        return this.contentResolver.getType(uri)?.let { mimeType ->
-            android.webkit.MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType)
+    private fun uriToFile( uri: Uri): File? {
+        val contentResolver = this.contentResolver
+        val tempFile = File.createTempFile("temp_image", ".jpg", this.cacheDir) // Cria um arquivo temporário
+        contentResolver.openInputStream(uri)?.use { inputStream ->
+            tempFile.outputStream().use { outputStream ->
+                inputStream.copyTo(outputStream)
+            }
         }
+        return tempFile
     }
 
     private fun imageFileToBase64(filePath: Uri): String? {
-        val ext = getFileExtension(filePath)
-        val pathName = "${filePath.path}.${ext}"
-        val file = File(pathName)
-        println(file)
-        println(file)
-        if (!file.exists()) return null
-        val bitmap = BitmapFactory.decodeFile(pathName)
+        val file = uriToFile(filePath)
+        if (!file?.exists()!!) return null
+        val bitmap = BitmapFactory.decodeFile(file.path)
         return bitmapToBase64(bitmap)
     }
 
     private fun submitRecipe() {
         val recipeName = etRecipeName.text.toString()
-        if (recipeName.isBlank() || selectedImageUri == null) {
+        val recipeDescrition = etRecipeDescription.text.toString()
+        if (recipeName.isBlank() || recipeDescrition.isBlank() || selectedImageUri == null) {
             Toast.makeText(this, "Preencha todos os campos e adicione uma imagem!", Toast.LENGTH_SHORT).show()
             return
         }
@@ -148,10 +163,33 @@ class CreateRecipe : AppCompatActivity() {
             steps.add(etStep.text.toString())
         }
 
-        println(recipeName)
-        println(ingredients)
-        println(steps)
-        println(imgBase64)
+        val recipe = mapOf(
+            "title" to recipeName,
+            "description" to recipeDescrition,
+            "img" to imgBase64,
+            "ingredients" to ingredients,
+            "steps" to steps,
+            "createdAt" to System.currentTimeMillis()
+        )
+
+        val db = Firebase.firestore
+        db.collection("recipes")
+            .add(recipe)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Receita enviada com sucesso!", Toast.LENGTH_SHORT).show()
+                etRecipeName.text.clear()
+                selectedImageUri = null
+                ingredientsContainer.removeAllViews()
+                stepsContainer.removeAllViews()
+
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            .addOnFailureListener { e ->
+                println(e.message)
+                Toast.makeText(this, "Erro ao enviar a receita: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
 
         Toast.makeText(this, "Receita enviada com sucesso!", Toast.LENGTH_SHORT).show()
     }

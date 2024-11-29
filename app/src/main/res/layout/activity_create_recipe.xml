@@ -23,21 +23,18 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:gravity="center">
-                <!-- Icon (Burger Image) -->
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/logo"
                     android:contentDescription="Home buttom" />
             </LinearLayout>
-            <!-- Back Button and Icon -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="start">
 
-                <!-- Back Button -->
                 <ImageView
                     android:layout_width="34dp"
                     android:layout_height="34dp"
@@ -46,7 +43,6 @@
                     android:onClick="goToList"/>
             </LinearLayout>
 
-            <!-- Title -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,6 +101,38 @@
                     android:background="@null"
                     android:paddingVertical="12dp"
                     android:hint="Digite o nome da receita"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_medium" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/container_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_corner_background"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descrição"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray"
+                    android:fontFamily="@font/poppins_medium" />
+
+                <EditText
+                    android:id="@+id/et_recipe_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:hint="Digite uma descrição para a receita"
+                    android:gravity="top|start"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:inputType="textMultiLine"
+                    android:maxLines="6"
+                    android:scrollbars="vertical"
                     android:textSize="14sp"
                     android:fontFamily="@font/poppins_medium" />
             </LinearLayout>

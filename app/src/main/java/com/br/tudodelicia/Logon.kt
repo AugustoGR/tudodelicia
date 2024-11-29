@@ -61,16 +61,16 @@ class Logon : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-//                    val profileUpdates = userProfileChangeRequest {
-//                        displayName = userName
-//                    }
-//                    user!!.updateProfile(profileUpdates)
+                    val profileUpdates = userProfileChangeRequest {
+                        displayName = userName
+                    }
+                    user!!.updateProfile(profileUpdates)
                     Toast.makeText(
                         baseContext,
                         "Conta cadastrada com sucesso.",
                         Toast.LENGTH_SHORT,
                     ).show()
-                    val intent = Intent(this, Login::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 } else {
                     Toast.makeText(
