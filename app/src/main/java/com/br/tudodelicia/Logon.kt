@@ -47,6 +47,8 @@ class Logon : AppCompatActivity() {
         val email = findViewById<EditText>(R.id.emailInput).text.toString()
         val userName = findViewById<EditText>(R.id.userInput).text.toString()
 
+        println("aaaa")
+
         if (password != confirmPassword ) {
             Toast.makeText(
                 baseContext,

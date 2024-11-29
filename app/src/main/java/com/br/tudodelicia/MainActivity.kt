@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -30,6 +31,29 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         auth = Firebase.auth
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.item_1 -> {
+                    // Ação para o item "Início"
+                    startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
+                R.id.item_2 -> {
+                    // Ação para o item "Pesquisa"
+                    startActivity(Intent(this, Search::class.java))
+                    true
+                }
+                /*R.id.item_3 -> {
+                    // Ação para o item "Favoritos"
+                    startActivity(Intent(this, FavoritesActivity::class.java))
+                    true
+                }*/
+                else -> false
+            }
+        }
     }
     public override fun onStart() {
         super.onStart()
@@ -80,4 +104,5 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, CreateRecipe::class.java)
         startActivity(intent)
     }
+
 }

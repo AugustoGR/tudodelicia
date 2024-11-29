@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecipeCardAdapter(private val foodList: List<Recipe>) : RecyclerView.Adapter<RecipeCardAdapter.RecipeCardViewHolder>() {
+class RecipeCardAdapter(private var foodList: List<Recipe>) : RecyclerView.Adapter<RecipeCardAdapter.RecipeCardViewHolder>() {
 
     class RecipeCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.item_image)
@@ -33,5 +33,10 @@ class RecipeCardAdapter(private val foodList: List<Recipe>) : RecyclerView.Adapt
 
     override fun getItemCount(): Int {
         return foodList.size
+    }
+
+    fun updateList(newList: List<Recipe>) {
+        foodList = newList
+        notifyDataSetChanged()
     }
 }

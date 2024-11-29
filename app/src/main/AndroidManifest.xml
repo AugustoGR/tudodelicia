@@ -27,6 +27,7 @@
         <activity android:name=".Logon" />
         <activity android:name=".Login" />
         <activity android:name=".CreateRecipe" />
+        <activity android:name=".Search"/>
 
         <meta-data
             android:name="preloaded_fonts"
