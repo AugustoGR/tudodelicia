@@ -68,7 +68,7 @@ class UserProfileActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { querySnapshot ->
                 if (!querySnapshot.isEmpty) {
-                    val document = querySnapshot.documents[0] // Pega o primeiro resultado
+                    val document = querySnapshot.documents[querySnapshot.documents.size - 1] // Pega o primeiro resultado
                     val base64Image = document.getString("img") ?: ""
                     val decodedBytes = Base64.decode(base64Image, Base64.DEFAULT)
                     val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)

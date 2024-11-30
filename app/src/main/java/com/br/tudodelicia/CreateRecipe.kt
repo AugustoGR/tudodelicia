@@ -92,9 +92,11 @@ class CreateRecipe : AppCompatActivity() {
     }
 
     private fun handleRemoveStep(container: LinearLayout, stepView: View) {
-        ingredientsContainer.removeView(stepView)
+        println(stepView)
+        container.removeView(stepView)
         stepsCounter = 0
         for (count in 0 until container.childCount) {
+            println("Passo ${stepsCounter}:")
             val tempStepView = container.getChildAt(count)
             stepsCounter += 1
             tempStepView.findViewById<TextView>(R.id.tv_step_label).text = "Passo ${stepsCounter}:"

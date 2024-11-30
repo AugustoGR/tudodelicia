@@ -128,7 +128,7 @@ class RecipeDetail : AppCompatActivity() {
             }
     }
 
-    private fun goToList(view: View) {
+    fun goToList(view: View) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
@@ -169,5 +169,4 @@ class RecipeDetail : AppCompatActivity() {
 
         recipeRef.update("commentsCount", FieldValue.increment(1))
     }
-
 }
