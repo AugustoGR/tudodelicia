@@ -195,4 +195,9 @@ class CreateRecipe : AppCompatActivity() {
 
         Toast.makeText(this, "Receita enviada com sucesso!", Toast.LENGTH_SHORT).show()
     }
+
+    fun goToList(view: View) {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
 }
